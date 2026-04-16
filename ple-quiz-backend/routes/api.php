@@ -9,32 +9,27 @@ Route::get('/questions', function () {
     ]);
 });
 
-Route::post('/quiz-result', function (Request $request) {
+Route::post('/quiz-result', function (Illuminate\Http\Request $request) {
+
     $answers = $request->answers;
 
-    $scores=[];
+    $scores = [];
 
-    foreach($answers as $answer) {
-        foreach($answer as $faction => $points) {
-            if(!isset($scores[$faction])) {
+    foreach ($answers as $answer) {
+        foreach ($answer as $faction => $points) {
+            if (!isset($scores[$faction])) {
                 $scores[$faction] = 0;
             }
             $scores[$faction] += $points;
         }
-    };
+    }
 
     arsort($scores);
 
-    $result = array_key_first($scores);
-
-
     return response()->json([
-        'faction'=> $result,
-        'score'=> $scores
-    ]) ;
+        'result' => array_key_first($scores),
+        'scores' => $scores
+    ]);
 });
 
-// Route::post('/questions', function () {
-    
 
-// });

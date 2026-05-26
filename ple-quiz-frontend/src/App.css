@@ -182,3 +182,15 @@
     border-right-color: var(--border);
   }
 }
+
+
+header {
+  background-color: var(--accent-bg);
+  padding: 30px 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--accent-border);
+}
+
+header h1 {
+  margin: 0;
+}

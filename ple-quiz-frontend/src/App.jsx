@@ -7,21 +7,21 @@ const factionThemes = {
     '--accent-bg': 'rgba(55, 138, 221, 0.08)',
     '--accent-border': 'rgba(55, 138, 221, 0.4)',
     '--page-bg': '#E6F1FB',
-    '--text-h': '#0C447C',
+    '--text-h': '#01070d',
   },
   tau: {
     '--accent': '#639922',
     '--accent-bg': 'rgba(99, 153, 34, 0.08)',
     '--accent-border': 'rgba(99, 153, 34, 0.4)',
     '--page-bg': '#EAF3DE',
-    '--text-h': '#27500A',
+    '--text-h': '#060c02',
   },
   chaos: {
-    '--accent': '#E24B4A',
-    '--accent-bg': 'rgba(226, 75, 74, 0.08)',
-    '--accent-border': 'rgba(226, 75, 74, 0.4)',
+    '--accent': '#d81818',
+    '--accent-bg': 'rgba(154, 49, 49, 0.55)',
+    '--accent-border': 'rgba(131, 42, 42, 0.4)',
     '--page-bg': '#FCEBEB',
-    '--text-h': '#791F1F',
+    '--text-h': '#0b0303',
   },
   orks: {
     '--accent': '#639922',
@@ -31,11 +31,11 @@ const factionThemes = {
     '--text-h': '#173404',
   },
   necrons: {
-    '--accent': '#1D9E75',
+    '--accent': '#83918c',
     '--accent-bg': 'rgba(29, 158, 117, 0.08)',
-    '--accent-border': 'rgba(29, 158, 117, 0.4)',
+    '--accent-border': 'rgba(48, 117, 95, 0.4)',
     '--page-bg': '#E1F5EE',
-    '--text-h': '#04342C',
+    '--text-h': '#021714',
   },
   eldar: {
     '--accent': '#D4537E',
@@ -68,10 +68,10 @@ const questions = [
   {
     question: "What is your favorite fantasy species?",
     answers: [
-      { text: "Humans", value: { space_marines: 2, chaos: 1 } },
-      { text: "Elves", value: { eldar: 2 } },
-      { text: "Orcs", value: { orks: 2 } },
-      { text: "Skeletons", value: { necrons: 2 } }
+      { text: "Humans", value: { space_marines: 3, chaos: 2 } },
+      { text: "Elves", value: { eldar: 3 } },
+      { text: "Orcs", value: { orks: 3 } },
+      { text: "Skeletons", value: { necrons: 3 } }
     ]
   }
 
@@ -103,7 +103,7 @@ function applyTheme(faction) {
   const theme = factionThemes[faction];
   if (!theme) return;
   const root = document.documentElement;
-  Object.entries(theme).forEach(([prop, val]) => root.style.removeProperty(prop));
+  Object.entries(theme).forEach(([prop, val]) => root.style.setProperty(prop, val));
 }
 
 function clearTheme() {
@@ -141,7 +141,7 @@ function App() {
       const winner = Object.entries(newScores).sort((a, b) => b[1] - a[1])[0][0];
       applyTheme(winner);
 
-      await fetch('http://127.0.0.1:8000/api/quiz-result', {
+      fetch('http://127.0.0.1:8000/api/quiz-result', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -171,6 +171,9 @@ function App() {
   if (!result) {
     return (
       <>
+        <header>
+          <h1>Warhammer Quiz</h1>
+        </header>
         <section id="center">
           <div className='hero'>
             <h2>{quizQuestion.question}</h2>
@@ -196,6 +199,9 @@ function App() {
   if (result) {
     return (
       <>
+        <header>
+          <h1>Warhammer Quiz</h1>
+        </header>
         <section id='center'>
           <div className='hero'>
             <h1>We recommend:</h1>
